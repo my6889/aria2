@@ -1,0 +1,46 @@
+version: '3.7'
+services:
+  aria2-pro:
+    image: p3terx/aria2-pro
+    container_name: aria2-pro
+    ports:
+      - 6800:6800
+    volumes:
+      - '/aria2/aria2-downloads:/downloads'
+      - '/aria2/aria2-config:/config'
+    environment:
+      - RPC_SECRET=p3terx
+      - RPC_PORT=6800
+      - LISTEN_PORT=6888
+    restart: unless-stopped
+    networks:
+      - aria2
+  ariang:
+    image: p3terx/ariang
+    container_name: ariang
+    ports:
+      - 6880:6880
+    restart: unless-stopped
+    networks:
+      - aria2
+    depends_on:
+      - aria2-pro
+  nginx:
+    image: my6889/nginx:1.18.0-autoindex
+    container_name: nginx
+    volumes:
+      - '/aria2/aria2-downloads:/usr/share/nginx/html'
+    ports:
+      - 8888:80
+    restart: unless-stopped
+    networks:
+      - aria2
+    depends_on:
+      - ariang
+
+networks:
+  aria2:
+    ipam:
+      driver: default
+      config:
+      - subnet: "172.21.18.0/24"
