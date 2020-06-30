@@ -27,11 +27,11 @@ $ sudo chmod +x /usr/local/bin/docker-compose
 ---
 
 ## 项目说明
-本项目通过docker-compose整合了三个容器，分别为`aria2-pro`,`ariang`,`nginx-autoindex`
+本项目通过docker-compose整合了三个容器，分别为`Aria2-Pro`,`AriaNG`,`Nginx`
 
 **容器说明：**
 
-Aria2-pro：下载模块
+Aria2-Pro：下载模块
 
 AriaNG：Web控制面板
 
@@ -52,7 +52,7 @@ $ cd aria2
 $ vim docker-compose.yaml
 ```
 
-第12行：修改RPC_SECRET，也可保持默认，后面会用到
+第12行：设置`RPC_SECRET`的值，也可保持默认，后面会用到
 
 **启动项目**
 
@@ -68,7 +68,11 @@ http://宿主机IP:8888    # Nginx列出的目录
 ```
 
 **设置AriaNG**
-访问`http://宿主机IP:6880`，打开Web页面后
+
+访问`http://宿主机IP:6880`
+
+打开Web页面后
+
 在`系统设置`-`AriaNg设置`-`RPC`中设置Aria2的地址
 
 * 修改`Aria2 RPC地址`为宿主机IP，端口和后缀保持默认
